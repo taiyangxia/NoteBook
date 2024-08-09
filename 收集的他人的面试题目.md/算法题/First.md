@@ -1,6 +1,42 @@
 # 1 
 # $\color{red} {手写 memmove} $
 
+// 但是 库函数中 memmove(dst, src, int n);  // 从后往前移动
+```
+void* Mymemmove(const void* src, void* dst,size_t n) {
+	char* d = (char*)dst;
+	const char* s = (const char*)src;
+
+	if (s > d) {
+		while (n--) {
+			*(d++) = *(s++);
+		}
+	}else if (s < d) {
+		s -= n;
+		d -= n;
+		while (n--) {
+			*(--d) = *(--s);
+		}
+	}
+
+	return dst;
+}
+
+int main(){
+    const char* src = "1234567";
+	char dst[] = "567890";
+    
+	Mymemmove(src, dst, 3);
+	printf("%s\n", dst);
+
+	char str1[] = "1234567890";
+	Mymemmove(str1 + 2, str1, 3);
+
+	printf("str1=%s\n", str1);
+}
+
+```
+
 # 2 $\color{red} {反转str中单词，但注意 只在 , 间隔开的区域内各自反转：} $
 
 
